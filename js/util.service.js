@@ -7,7 +7,9 @@ export const utilService = {
     readJsonFile,
     download,
     writeJsonFile,
-    readTextFile
+    readTextFile,
+    getRandomIntInclusive,
+    writeToFile
 }
 
 function readTextFile(path) {
@@ -25,6 +27,16 @@ function readJsonFile(path) {
     const json = JSON.parse(str)
     return json
 }
+
+function writeToFile(path, str) {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(path, str, err => {
+            if (err) return reject(err)
+            resolve()
+        })
+    })
+}
+
 
 function writeJsonFile(path, json) {
     const data = JSON.stringify(json, null, 4)
@@ -75,3 +87,10 @@ function httpGet(url) {
         req.end()
     })
 }
+
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }
+  
